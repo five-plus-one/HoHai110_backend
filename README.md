@@ -6,7 +6,11 @@
 ![Node.js](https://img.shields.io/badge/Node.js-14%2B-green)
 ![Express](https://img.shields.io/badge/Express-5.x-lightgrey)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-orange)
-![License](https://img.shields.io/badge/license-ISC-blue)
+![License](https://img.shields.io/badge/license-GPL--3.0-blue)
+
+[联系作者](https://r-l.ink/about)
+
+[支持我一杯咖啡](https://r-l.ink/support)
 
 **基于 Node.js + Express + MySQL 构建的校庆网站后端API服务**
 
@@ -1257,7 +1261,16 @@ MAX_FILE_SIZE: 10 * 1024 * 1024 // 10MB
 
 ## 许可证
 
-本项目采用 **ISC** 许可证。详见 [LICENSE](./LICENSE) 文件。
+本项目采用 **GPL-3.0** 许可证。详见 [LICENSE](./LICENSE) 文件。
+
+这意味着：
+- ✅ 可以自由使用、修改和分发本软件
+- ✅ 可以用于商业目的
+- ⚠️ 修改后的版本必须同样采用 GPL-3.0 协议开源
+- ⚠️ 必须保留原作者的版权声明
+- ⚠️ 修改后的代码必须标注修改说明
+
+更多信息请访问：https://www.gnu.org/licenses/gpl-3.0.html
 
 ---
 

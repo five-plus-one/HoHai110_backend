@@ -16,7 +16,7 @@
     "sequelize"
   ],
   "author": "Five Plus One Team",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "description": "河海大学110周年校庆网站后端API服务",
   "dependencies": {
     "bcryptjs": "^3.0.2",
