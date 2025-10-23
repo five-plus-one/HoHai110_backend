@@ -8,9 +8,10 @@
 
 ## 快速开始
 
-### 1. 克隆项目（如果有）或进入项目目录
+### 1. 克隆项目
 
 ```bash
+git clone https://github.com/five-plus-one/HoHai110_backend.git
 cd HoHai110_backend
 ```
 
@@ -181,9 +182,17 @@ pm2 start ecosystem.config.js
 ## 获取帮助
 
 如有问题，请查看：
-- README.md - 完整文档
-- api-test.http - API测试示例
-- init.sql - 数据库结构和示例数据
+- [README.md](./README.md) - 完整文档
+- [api-test.http](./api-test.http) - API测试示例
+- [init.sql](./init.sql) - 数据库结构和示例数据
+
+## 项目链接
+
+- **前端开源地址:** https://github.com/five-plus-one/HoHai110_frontend
+- **后端开源地址:** https://github.com/five-plus-one/HoHai110_backend
+- **问题反馈:** https://github.com/five-plus-one/HoHai110_backend/issues
+- **联系作者:** https://r-l.ink/about
+- **支持我一杯咖啡:** https://r-l.ink/support
 
 ## License
 

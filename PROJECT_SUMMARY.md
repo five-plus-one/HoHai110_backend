@@ -367,6 +367,15 @@ npm run dev
 
 ---
 
+## 项目链接
+
+- **前端开源地址:** https://github.com/five-plus-one/HoHai110_frontend
+- **后端开源地址:** https://github.com/five-plus-one/HoHai110_backend
+- **联系作者:** https://r-l.ink/about
+- **支持我一杯咖啡:** https://r-l.ink/support
+
+---
+
 **开发完成时间**: 2025年10月19日
 **开发团队**: Five Plus One Team
 **项目版本**: v1.0.0

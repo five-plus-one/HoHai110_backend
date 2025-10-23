@@ -270,8 +270,8 @@ HoHai110_backend/
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-org/hohai110-backend.git
-cd hohai110-backend
+git clone https://github.com/five-plus-one/HoHai110_backend.git
+cd HoHai110_backend
 ```
 
 ### 2. 安装依赖
@@ -1263,10 +1263,11 @@ MAX_FILE_SIZE: 10 * 1024 * 1024 // 10MB
 
 ## 联系我们
 
-- **项目仓库:** https://github.com/your-org/hohai110-backend
-- **问题反馈:** https://github.com/your-org/hohai110-backend/issues
-- **邮件联系:** support@example.com
-- **官方网站:** https://hohai110.edu.cn
+- **前端开源地址:** https://github.com/five-plus-one/HoHai110_frontend
+- **后端开源地址:** https://github.com/five-plus-one/HoHai110_backend
+- **问题反馈:** https://github.com/five-plus-one/HoHai110_backend/issues
+- **联系作者:** https://r-l.ink/about
+- **支持我一杯咖啡:** https://r-l.ink/support
 
 ---
 
