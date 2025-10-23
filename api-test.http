@@ -1,0 +1,432 @@
+### 河海大学110周年校庆API测试文件
+
+# 设置变量
+@baseUrl = https://api.hohai110.five-plus-one.com/api/v1
+#http://localhost:3001/api/v1
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc2MDkyMzExNSwiZXhwIjoxNzYxMDA5NTE1fQ.MWRJzdF_B45g1KFPuKfgNPIrwuLFBW3kL-oHc5fwU6I
+@userId =
+@maximId =
+@activityId = 1
+@articleId = 1
+@commentId = 1
+@blessingId = 1
+@visitorSessionId =
+@futureMessageId = 1
+
+### 健康检查
+GET http://localhost:3001/health
+
+### ============= 用户认证接口 =============
+
+### 用户注册
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@hohai.edu.cn",
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+
+### 用户登录
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Token刷新
+POST {{baseUrl}}/auth/refresh
+Authorization: Bearer {{token}}
+
+### ============= 时间线接口 =============
+
+### 获取时间线事件列表
+GET {{baseUrl}}/timeline/events?page=1&pageSize=20
+
+### 获取特定年份的时间线事件
+GET {{baseUrl}}/timeline/events?year=1915
+
+### 获取特定分类的时间线事件
+GET {{baseUrl}}/timeline/events?category=milestone
+
+### 获取单个时间线事件详情
+GET {{baseUrl}}/timeline/events/1
+
+### ============= 接力活动接口 =============
+
+### 获取接力活动列表
+GET {{baseUrl}}/relay/activities?page=1&pageSize=10
+
+### 获取进行中的接力活动
+GET {{baseUrl}}/relay/activities?status=ongoing
+
+### 用户参与接力活动
+POST {{baseUrl}}/relay/participate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "activityId": {{activityId}},
+  "content": "祝母校生日快乐！百十河海,薪火相传！",
+  "images": ["/uploads/image1.jpg", "/uploads/image2.jpg"],
+  "video": "/uploads/video1.mp4"
+}
+
+### 获取接力活动参与者列表
+GET {{baseUrl}}/relay/activities/{{activityId}}/participants?page=1&pageSize=10
+
+### ============= 格言征集接口 =============
+
+### 获取格言列表（最新）
+GET {{baseUrl}}/maxims?page=1&pageSize=10&sort=newest
+
+### 获取格言列表（最热门）
+GET {{baseUrl}}/maxims?page=1&pageSize=10&sort=popular
+
+### 获取格言列表（随机）
+GET {{baseUrl}}/maxims?page=1&pageSize=10&sort=random
+
+### 提交新格言
+POST {{baseUrl}}/maxims
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "上善若水，水善利万物而不争",
+  "author": "老子",
+  "category": "励志"
+}
+
+### 点赞格言
+POST {{baseUrl}}/maxims/{{maximId}}/like
+Authorization: Bearer {{token}}
+
+### 取消点赞格言
+DELETE {{baseUrl}}/maxims/{{maximId}}/like
+Authorization: Bearer {{token}}
+
+### ============= 文章接口 =============
+
+### 获取文章列表
+GET {{baseUrl}}/articles?page=1&limit=10&status=published
+
+### 获取特定分类的文章
+GET {{baseUrl}}/articles?category=校庆动态&page=1&limit=10
+
+### 获取文章详情
+GET {{baseUrl}}/articles/{{articleId}}
+
+### 创建文章 (需要登录)
+POST {{baseUrl}}/articles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "河海大学110周年校庆盛大开幕",
+  "content": "今天，河海大学迎来了110周年校庆...",
+  "summary": "河海大学110周年校庆隆重举行",
+  "coverImage": "/uploads/article-cover.jpg",
+  "category": "校庆动态",
+  "status": "published",
+  "tags": ["校庆", "110周年", "庆典"]
+}
+
+### 更新文章 (需要登录)
+PUT {{baseUrl}}/articles/{{articleId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "更新后的文章标题",
+  "content": "更新后的文章内容",
+  "status": "published"
+}
+
+### 删除文章 (需要登录)
+DELETE {{baseUrl}}/articles/{{articleId}}
+Authorization: Bearer {{token}}
+
+### ============= 评论/留言接口 =============
+
+### 获取文章的评论列表
+GET {{baseUrl}}/comments/article/{{articleId}}?page=1&limit=20
+
+### 发表评论 (需要登录)
+POST {{baseUrl}}/comments/article/{{articleId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "这篇文章写得真好！"
+}
+
+### 回复评论 (需要登录)
+POST {{baseUrl}}/comments/article/{{articleId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "我也这么认为！",
+  "parentId": 1
+}
+
+### 删除评论 (需要登录)
+DELETE {{baseUrl}}/comments/{{commentId}}
+Authorization: Bearer {{token}}
+
+### 点赞评论 (需要登录)
+POST {{baseUrl}}/comments/{{commentId}}/like
+Authorization: Bearer {{token}}
+
+### 取消点赞评论 (需要登录)
+DELETE {{baseUrl}}/comments/{{commentId}}/like
+Authorization: Bearer {{token}}
+
+### ============= 祝福接口 =============
+
+### 获取祝福列表
+GET {{baseUrl}}/blessings?page=1&limit=20&status=approved
+
+### 获取随机祝福
+GET {{baseUrl}}/blessings/random?limit=5
+
+### 获取单条祝福
+GET {{baseUrl}}/blessings/{{blessingId}}
+
+### 发表祝福 (需要登录)
+POST {{baseUrl}}/blessings
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "祝母校生日快乐，百年树人，再创辉煌！",
+  "isAnonymous": false
+}
+
+### 发表匿名祝福 (需要登录)
+POST {{baseUrl}}/blessings
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "祝河海大学越办越好！",
+  "isAnonymous": true
+}
+
+### 更新祝福 (需要登录)
+PUT {{baseUrl}}/blessings/{{blessingId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "content": "更新后的祝福内容"
+}
+
+### 删除祝福 (需要登录)
+DELETE {{baseUrl}}/blessings/{{blessingId}}
+Authorization: Bearer {{token}}
+
+### 点赞祝福 (需要登录)
+POST {{baseUrl}}/blessings/{{blessingId}}/like
+Authorization: Bearer {{token}}
+
+### 取消点赞祝福 (需要登录)
+DELETE {{baseUrl}}/blessings/{{blessingId}}/like
+Authorization: Bearer {{token}}
+
+### ============= 用户信息接口 =============
+
+### 获取个人信息
+GET {{baseUrl}}/users/profile
+Authorization: Bearer {{token}}
+
+### 更新个人信息
+PUT {{baseUrl}}/users/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "newusername",
+  "bio": "河海大学水利工程专业2020届毕业生",
+  "avatar": "/uploads/avatar.jpg",
+  "graduationYear": 2020,
+  "department": "水利水电学院"
+}
+
+### ============= 统计数据接口 =============
+
+### 获取校庆统计信息
+GET {{baseUrl}}/statistics/overview
+
+### ============= 管理员接口 =============
+
+### 获取管理员统计数据
+GET {{baseUrl}}/admin/stats
+Authorization: Bearer {{token}}
+
+### 获取待审核内容
+GET {{baseUrl}}/admin/pending
+Authorization: Bearer {{token}}
+
+### 审核评论
+PUT {{baseUrl}}/admin/comments/{{commentId}}/review
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "approved"
+}
+
+### 审核祝福
+PUT {{baseUrl}}/admin/blessings/{{blessingId}}/review
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "approved"
+}
+
+### 获取用户列表
+GET {{baseUrl}}/admin/users?page=1&limit=20
+Authorization: Bearer {{token}}
+
+### 删除用户
+DELETE {{baseUrl}}/admin/users/{{userId}}
+Authorization: Bearer {{token}}
+
+### 批量删除内容
+POST {{baseUrl}}/admin/batch-delete
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "comment",
+  "ids": [1, 2, 3, 4, 5]
+}
+
+### ============= 文件上传接口 =============
+
+### 上传图片
+POST {{baseUrl}}/upload/media
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="type"
+
+image
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="test.jpg"
+Content-Type: image/jpeg
+
+< ./test.jpg
+------WebKitFormBoundary--
+
+### 上传视频
+POST {{baseUrl}}/upload/media
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="type"
+
+video
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="test.mp4"
+Content-Type: video/mp4
+
+< ./test.mp4
+------WebKitFormBoundary--
+
+### ============= 访客统计接口 =============
+
+### 增加访客量（首次访问）
+POST {{baseUrl}}/visitors/add
+Content-Type: application/json
+
+{
+}
+
+### 增加访客量（带sessionId，避免重复计数）
+POST {{baseUrl}}/visitors/add
+Content-Type: application/json
+
+{
+  "sessionId": "{{visitorSessionId}}"
+}
+
+### 获取访客总数
+GET {{baseUrl}}/visitors/count
+
+### 获取访客统计（管理员）
+GET {{baseUrl}}/visitors/stats
+Authorization: Bearer {{token}}
+
+### ============= 寄语未来接口 =============
+
+### 创建寄语（无需登录）
+POST {{baseUrl}}/future-messages
+Content-Type: application/json
+
+{
+  "name": "张三",
+  "grade": "2018级水利工程",
+  "message": "祝河海大学110周年生日快乐！百年树人，薪火相传。作为河海学子，我将继续发扬'艰苦朴素，实事求是，严格要求，勇于探索'的校训精神，为祖国的水利事业贡献自己的力量！"
+}
+
+### 创建寄语（已登录用户）
+POST {{baseUrl}}/future-messages
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "李四",
+  "grade": "河海校友",
+  "message": "母校百十华诞，桃李满天下。感恩母校的培养，祝愿河海大学越办越好，培养更多优秀人才！"
+}
+
+### 获取寄语列表（最新）
+GET {{baseUrl}}/future-messages?page=1&limit=20&sort=latest
+
+### 获取寄语列表（随机）
+GET {{baseUrl}}/future-messages?page=1&limit=20&sort=random
+
+### 获取随机寄语
+GET {{baseUrl}}/future-messages/random?limit=5
+
+### 获取单条寄语详情
+GET {{baseUrl}}/future-messages/{{futureMessageId}}
+
+### 获取所有寄语（管理员，包含待审核）
+GET {{baseUrl}}/future-messages/admin/all?page=1&limit=20
+Authorization: Bearer {{token}}
+
+### 获取待审核寄语（管理员）
+GET {{baseUrl}}/future-messages/admin/all?page=1&limit=20&status=pending
+Authorization: Bearer {{token}}
+
+### 审核寄语 - 通过（管理员）
+PUT {{baseUrl}}/future-messages/admin/{{futureMessageId}}/review
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "approved"
+}
+
+### 审核寄语 - 拒绝（管理员）
+PUT {{baseUrl}}/future-messages/admin/{{futureMessageId}}/review
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "rejected"
+}
+
+### 删除寄语（管理员）
+DELETE {{baseUrl}}/future-messages/admin/{{futureMessageId}}
+Authorization: Bearer {{token}}

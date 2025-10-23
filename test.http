@@ -1,0 +1,10 @@
+  GET http://localhost:3000/api/timeline
+
+  POST http://localhost:3000/api/message
+  Content-Type: application/json
+
+  {
+    "name": "张三",
+    "year": 2015,
+    "text": "祝母校百十生日快乐！"
+  }

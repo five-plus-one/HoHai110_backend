@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  hohai110-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hohai110-backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      # 数据库配置 - 如果 MySQL 在宿主机上，使用 host.docker.internal
+      - DB_HOST=host.docker.internal
+      - DB_PORT=3306
+      - DB_USER=hohai110_user
+      - DB_PASSWORD=your_database_password_here
+      - DB_NAME=hohai110
+      # JWT 密钥 - 请修改为随机生成的强密钥
+      - JWT_SECRET=your_jwt_secret_key_here_please_change_in_production
+      # 上传配置
+      - UPLOAD_DIR=/app/uploads
+    volumes:
+      # 持久化上传文件
+      - ./uploads:/app/uploads
+      # 持久化日志
+      - ./logs:/app/logs
+    extra_hosts:
+      # 允许容器访问宿主机上的 MySQL
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    networks:
+      - hohai110-network
+
+networks:
+  hohai110-network:
+    driver: bridge
